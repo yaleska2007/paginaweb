@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANGELESNAILS2007 — Nail Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav id="main-nav">
+<div class="nav-logo">
+
+    <img
+        id="business-logo-display"
+        src=""
+        alt="Logo"
+        style="
+        width:50px;
+        height:50px;
+        object-fit:cover;
+        border-radius:50%;
+        margin-right:10px;
+        display:none;">
+
+    <div id="business-name-display">
+        <span class="dot">✦</span>
+        ANGELESNAILS2007
+    </div>
+
+</div>
+</div>
+  <ul class="nav-tabs" role="tablist">
+    <li><button data-view="inicio"    class="active" role="tab">Inicio</button></li>
+    <li><button data-view="servicios"               role="tab">Servicios</button></li>
+    <li><button data-view="galeria"                 role="tab">Galería</button></li>
+    <li><button data-view="citas"                   role="tab">Citas</button></li>
+    <li><button data-view="ubicacion"               role="tab">Ubicación</button></li>
+    <li><button data-view="resenas"                 role="tab">Reseñas</button></li>
+  </ul>
+  <a id="nav-whatsapp" href="#" class="nav-cta-btn" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i> Agendar cita
+  </a>
+</nav>
+
+<a id="float-whatsapp" href="#" class="wa-float" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<nav class="mobile-nav" id="mobile-nav">
+  <button data-view="inicio"    class="active"><i class="fa-solid fa-house"></i>Inicio</button>
+  <button data-view="servicios"               ><i class="fa-solid fa-spa"></i>Servicios</button>
+  <button data-view="galeria"                 ><i class="fa-solid fa-images"></i>Galería</button>
+  <button data-view="citas"                   ><i class="fa-solid fa-calendar-check"></i>Citas</button>
+  <button data-view="ubicacion"               ><i class="fa-solid fa-location-dot"></i>Ubicación</button>
+  <button data-view="resenas"                 ><i class="fa-solid fa-star"></i>Reseñas</button>
+</nav>
+
+<div id="app">
+
+ <!-- INICIO -->
+<div id="view-inicio" class="view active">
+  <section class="hero">
+
+    <div class="hero-left">
+
+    
+      <div class="hero-right">
+
+    <div class="deco-ring ring-1"></div>
+    <div class="deco-ring ring-2"></div>
+
+   
+
+    
+
+</div>
+
+      <div class="hero-eyebrow">
+        <i class="fa-solid fa-star"></i>
+        Nail Studio Premium
+      </div>
+
+      <h1>Uñas que<br><em>cuentan</em> tu<br>historia</h1>
+
+      <p class="hero-sub">
+        Acrílicas, semipermanente y gel con un toque natural y delicado.
+        Cada diseño pensado para ti, hecho con amor y precisión.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn-gold" onclick="switchView('citas')">
+          <i class="fa-solid fa-calendar-plus"></i>
+          Agendar cita
+        </button>
+
+        <button class="btn-ghost" onclick="switchView('galeria')">
+          <i class="fa-solid fa-images"></i>
+          Ver portafolio
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">3+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+
+        <div>
+          <div class="stat-val">100%</div>
+          <div class="stat-label">Diseños personalizados</div>
+        </div>
+
+        <div>
+          <div class="stat-val">★ 5.0</div>
+          <div class="stat-label">Satisfacción</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="deco-ring ring-1"></div>
+      <div class="deco-ring ring-2"></div>
+
+       <img
+        id="hero-logo"
+        src=""
+        alt="Logo negocio"
+        loading="eager"/>
+
+      <div class="hero-badge">
+        <div class="hero-badge-icon">
+          <i class="fa-solid fa-award"></i>
+        </div>
+
+        <div class="hero-badge-text">
+          <strong>Atención personalizada</strong>
+          Solo con cita previa · Desde casa
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+  <!-- SERVICIOS -->
+  <div id="view-servicios" class="view">
+    <section class="section">
+      <div class="s-header">
+        <div><div class="s-label">Servicios</div><h2 class="s-title">Lo que <em>ofrezco</em> para ti</h2></div>
+        <button class="btn-ghost" onclick="switchView('citas')" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-check"></i> Agendar ahora</button>
+      </div>
+      <div class="services-grid" id="services-grid">
+      </div>
+      
+    </section>
+  </div>
+
+  <!-- GALERÍA -->
+  <div id="view-galeria" class="view">
+    <section class="section">
+      <div class="s-header">
+        <div><div class="s-label">Portafolio</div><h2 class="s-title">Mis <em>trabajos</em></h2></div>
+        <button class="btn-ghost" onclick="switchView('citas')" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-plus"></i> Quiero uno así</button>
+      </div>
+      <div class="gallery-masonry" id="gallery-grid"></div>
+    </section>
+  </div>
+
+  <!-- CITAS -->
+  <div id="view-citas" class="view">
+    <section class="section">
+      <div class="booking-wrap">
+        <div class="bk-left">
+        <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
+        <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
+        
+        
+      </div>
+        <div class="bk-form">
+          <h3>Solicitar cita</h3>
+          <div class="f-grid-2">
+            <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
+            <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
+          </div>
+          <div class="f-row">
+            <label>Servicio de interés</label>
+            <select id="f-service">
+              <option value="">Selecciona un servicio…</option>
+              <option>Acrílicas</option><option>Semipermanente</option><option>Gel</option>
+              <option>Retoque / mantenimiento</option><option>Nail art / Diseño especial</option>
+            </select>
+          </div>
+          <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
+          <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
+          <button class="f-submit" onclick="sendWA()">></>&nbsp; Enviar solicitud</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- UBICACIÓN -->
+<div id="view-ubicacion" class="view">
+  <section class="section">
+    <div class="s-header">
+      <div>
+        <div class="s-label">Ubicación</div>
+        <h2 class="s-title">¿Dónde <em>quedo?</em></h2>
+      </div>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-info">
+        <h3>Información de contacto</h3>
+        <div>
+          <strong>Dirección</strong>
+          <span id="location-address">Sin configurar</span>
+        </div>
+        <div>
+          <strong>Horario</strong>
+          <span id="location-schedule">Sin configurar</span>
+        </div>
+        <div>
+          <strong>WhatsApp</strong>
+          <span id="location-whatsapp">Sin configurar</span>
+        </div>
+      </div>
+
+      <div class="map-embed">
+        <iframe
+          id="business-map"
+          width="100%"
+          height="100%"
+          style="border:0; border-radius:30px;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </section>
+</div>
+
+  <!-- RESEÑAS -->
+  <div id="view-resenas" class="view">
+    <section class="section">
+      <div class="s-header"><div><div class="s-label">Opiniones</div><h2 class="s-title">Lo que dicen mis <em>clientas</em></h2></div></div>
+      <div class="rv-summary">
+        <div class="rv-score-big">
+          <div class="num" id="rv-avg">5.0</div>
+          <div class="stars-display" id="rv-avg-stars"></div>
+          <small id="rv-total-label">0 reseñas</small>
+        </div>
+        <div class="rv-bars" id="rv-bars"></div>
+      </div>
+      <div class="rv-grid" id="rv-grid"></div>
+      <div class="rv-form-wrap">
+        <h3>Deja tu reseña 🌸</h3>
+        <p class="star-label" id="star-hint">Selecciona una calificación:</p>
+        <div class="star-picker" id="star-picker" role="group" aria-label="Calificación">
+          <button data-v="1" aria-label="1 estrella"><i class="fa-solid fa-star"></i></button>
+          <button data-v="2" aria-label="2 estrellas"><i class="fa-solid fa-star"></i></button>
+          <button data-v="3" aria-label="3 estrellas"><i class="fa-solid fa-star"></i></button>
+          <button data-v="4" aria-label="4 estrellas"><i class="fa-solid fa-star"></i></button>
+          <button data-v="5" aria-label="5 estrellas"><i class="fa-solid fa-star"></i></button>
+        </div>
+        <div class="rv-f-grid">
+          <div class="f-row"><label>Tu nombre</label><input id="rv-name" type="text" placeholder="Ej: Laura M."/></div>
+          <div class="f-row">
+            <label>Servicio que tomaste</label>
+            <select id="rv-service">
+              <option value="">Selecciona…</option>
+              <option>Acrílicas</option><option>Semipermanente</option><option>Gel</option>
+              <option>Retoque / mantenimiento</option><option>Nail art / Diseño especial</option>
+            </select>
+          </div>
+        </div>
+        <div class="f-row"><label>Tu comentario</label><textarea id="rv-comment" rows="3" placeholder="Cuéntale a otras clientas cómo fue tu experiencia…"></textarea></div>
+        <button class="f-submit" onclick="submitReview()" style="max-width:320px;"><i class="fa-solid fa-paper-plane"></i>&nbsp; Publicar reseña</button>
+      </div>
+    </section>
+  </div>
+
+</div><!-- /#app -->
+
+<div class="social-strip">
+  <blockquote>"Sígueme en redes para ver mis últimos diseños"</blockquote>
+  <div class="soc-links">
+
+    <a id="instagram-link"
+       href="#"
+       class="soc-btn"
+       target="_blank">
+
+       <i class="fa-brands fa-instagram"></i>
+       Instagram
+
+    </a>
+
+    <a id="tiktok-link"
+       href="#"
+       class="soc-btn"
+       target="_blank">
+
+       <i class="fa-brands fa-tiktok"></i>
+       TikTok
+
+    </a>
+
+</div>
+
+<footer>
+  <span class="footer-logo">✦ ANGELESNAILS2007</span>
+  <p>© 2026 · Hecho con 💗 · Todos los derechos reservados</p>
+  <p>Atención solo con cita previa</p>
+</footer>
+
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lightbox-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lightbox-img" src="" alt="Nail art ampliado"/>
+</div>
+
+<div class="rv-toast" id="rv-toast"></div>
+<script src="js/app.js"></script>
+
+</body>
+</html>
