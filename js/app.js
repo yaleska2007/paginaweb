@@ -188,6 +188,9 @@ document.querySelectorAll('[data-view]').forEach(btn => {
 /* ── WhatsApp form ───────────────────────────────────────── */
 function sendWA(){
 
+
+    
+
     const name =
     document.getElementById("f-name").value;
 
