@@ -31,7 +31,6 @@
     </div>
 
 </div>
-</div>
   <ul class="nav-tabs" role="tablist">
     <li><button data-view="inicio"    class="active" role="tab">Inicio</button></li>
     <li><button data-view="servicios"               role="tab">Servicios</button></li>
@@ -64,86 +63,69 @@
 <div id="view-inicio" class="view active">
   <section class="hero">
 
-    <div class="hero-left">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <i class="fa-solid fa-star"></i>
+      Nail Studio Premium
+    </div>
 
-    
-      <div class="hero-right">
+    <h1>Uñas que<br><em>cuentan</em> tu<br>historia</h1>
 
+    <p class="hero-sub">
+      Acrílicas, semipermanente y gel con un toque natural y delicado.
+      Cada diseño pensado para ti, hecho con amor y precisión.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-gold" onclick="switchView('citas')">
+        <i class="fa-solid fa-calendar-plus"></i>
+        Agendar cita
+      </button>
+
+      <button class="btn-ghost" onclick="switchView('galeria')">
+        <i class="fa-solid fa-images"></i>
+        Ver portafolio
+      </button>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">3+</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div>
+        <div class="stat-val">100%</div>
+        <div class="stat-label">Diseños personalizados</div>
+      </div>
+      <div>
+        <div class="stat-val">★ 5.0</div>
+        <div class="stat-label">Satisfacción</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
     <div class="deco-ring ring-1"></div>
     <div class="deco-ring ring-2"></div>
 
-   
+    <img
+      id="hero-logo"
+      src=""
+      alt="Logo negocio"
+      loading="eager"/>
 
-    
-
-</div>
-
-      <div class="hero-eyebrow">
-        <i class="fa-solid fa-star"></i>
-        Nail Studio Premium
+    <div class="hero-badge">
+      <div class="hero-badge-icon">
+        <i class="fa-solid fa-award"></i>
       </div>
-
-      <h1>Uñas que<br><em>cuentan</em> tu<br>historia</h1>
-
-      <p class="hero-sub">
-        Acrílicas, semipermanente y gel con un toque natural y delicado.
-        Cada diseño pensado para ti, hecho con amor y precisión.
-      </p>
-
-      <div class="hero-actions">
-        <button class="btn-gold" onclick="switchView('citas')">
-          <i class="fa-solid fa-calendar-plus"></i>
-          Agendar cita
-        </button>
-
-        <button class="btn-ghost" onclick="switchView('galeria')">
-          <i class="fa-solid fa-images"></i>
-          Ver portafolio
-        </button>
-      </div>
-
-      <div class="hero-stats">
-        <div>
-          <div class="stat-val">3+</div>
-          <div class="stat-label">Años de experiencia</div>
-        </div>
-
-        <div>
-          <div class="stat-val">100%</div>
-          <div class="stat-label">Diseños personalizados</div>
-        </div>
-
-        <div>
-          <div class="stat-val">★ 5.0</div>
-          <div class="stat-label">Satisfacción</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="hero-right">
-      <div class="deco-ring ring-1"></div>
-      <div class="deco-ring ring-2"></div>
-
-       <img
-        id="hero-logo"
-        src=""
-        alt="Logo negocio"
-        loading="eager"/>
-
-      <div class="hero-badge">
-        <div class="hero-badge-icon">
-          <i class="fa-solid fa-award"></i>
-        </div>
-
-        <div class="hero-badge-text">
-          <strong>Atención personalizada</strong>
-          Solo con cita previa · Desde casa
-        </div>
+      <div class="hero-badge-text">
+        <strong>Atención personalizada</strong>
+        Solo con cita previa · Desde casa
       </div>
     </div>
+  </div>
 
-  </section>
+</section>
 </div>
 
   <!-- SERVICIOS -->
