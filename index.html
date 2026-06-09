@@ -4,6 +4,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ANGELESNAILS2007 — Nail Studio</title>
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2E1A16">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AngelesNails">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="css/style.css">
@@ -12,24 +22,15 @@
 
 <nav id="main-nav">
 <div class="nav-logo">
-
     <img
         id="business-logo-display"
         src=""
         alt="Logo"
-        style="
-        width:50px;
-        height:50px;
-        object-fit:cover;
-        border-radius:50%;
-        margin-right:10px;
-        display:none;">
-
+        style="width:50px;height:50px;object-fit:cover;border-radius:50%;margin-right:10px;display:none;">
     <div id="business-name-display">
         <span class="dot">✦</span>
         ANGELESNAILS2007
     </div>
-
 </div>
   <ul class="nav-tabs" role="tablist">
     <li><button data-view="inicio"    class="active" role="tab">Inicio</button></li>
@@ -59,74 +60,60 @@
 
 <div id="app">
 
- <!-- INICIO -->
-<div id="view-inicio" class="view active">
-  <section class="hero">
-
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <i class="fa-solid fa-star"></i>
-      Nail Studio Premium
-    </div>
-
-    <h1>Uñas que<br><em>cuentan</em> tu<br>historia</h1>
-
-    <p class="hero-sub">
-      Acrílicas, semipermanente y gel con un toque natural y delicado.
-      Cada diseño pensado para ti, hecho con amor y precisión.
-    </p>
-
-    <div class="hero-actions">
-      <button class="btn-gold" onclick="switchView('citas')">
-        <i class="fa-solid fa-calendar-plus"></i>
-        Agendar cita
-      </button>
-
-      <button class="btn-ghost" onclick="switchView('galeria')">
-        <i class="fa-solid fa-images"></i>
-        Ver portafolio
-      </button>
-    </div>
-
-    <div class="hero-stats">
-      <div>
-        <div class="stat-val">3+</div>
-        <div class="stat-label">Años de experiencia</div>
+  <!-- INICIO -->
+  <div id="view-inicio" class="view active">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <i class="fa-solid fa-star"></i>
+          Nail Studio Premium
+        </div>
+        <h1>Uñas que<br><em>cuentan</em> tu<br>historia</h1>
+        <p class="hero-sub">
+          Acrílicas, semipermanente y gel con un toque natural y delicado.
+          Cada diseño pensado para ti, hecho con amor y precisión.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-gold" onclick="switchView('citas')">
+            <i class="fa-solid fa-calendar-plus"></i>
+            Agendar cita
+          </button>
+          <button class="btn-ghost" onclick="switchView('galeria')">
+            <i class="fa-solid fa-images"></i>
+            Ver portafolio
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-val">3+</div>
+            <div class="stat-label">Años de experiencia</div>
+          </div>
+          <div>
+            <div class="stat-val">100%</div>
+            <div class="stat-label">Diseños personalizados</div>
+          </div>
+          <div>
+            <div class="stat-val">★ 5.0</div>
+            <div class="stat-label">Satisfacción</div>
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="stat-val">100%</div>
-        <div class="stat-label">Diseños personalizados</div>
+      <div class="hero-right">
+        <div class="deco-ring ring-1"></div>
+        <div class="deco-ring ring-2"></div>
+        <img id="hero-logo" src="" alt="Logo negocio" loading="eager"/>
+        <div class="hero-badge">
+          <div class="hero-badge-icon">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="hero-badge-text">
+            <strong>Atención personalizada</strong>
+            Solo con cita previa · Desde casa
+          </div>
+        </div>
       </div>
-      <div>
-        <div class="stat-val">★ 5.0</div>
-        <div class="stat-label">Satisfacción</div>
-      </div>
-    </div>
+    </section>
   </div>
-
-  <div class="hero-right">
-    <div class="deco-ring ring-1"></div>
-    <div class="deco-ring ring-2"></div>
-
-    <img
-      id="hero-logo"
-      src=""
-      alt="Logo negocio"
-      loading="eager"/>
-
-    <div class="hero-badge">
-      <div class="hero-badge-icon">
-        <i class="fa-solid fa-award"></i>
-      </div>
-      <div class="hero-badge-text">
-        <strong>Atención personalizada</strong>
-        Solo con cita previa · Desde casa
-      </div>
-    </div>
-  </div>
-
-</section>
-</div>
 
   <!-- SERVICIOS -->
   <div id="view-servicios" class="view">
@@ -135,9 +122,7 @@
         <div><div class="s-label">Servicios</div><h2 class="s-title">Lo que <em>ofrezco</em> para ti</h2></div>
         <button class="btn-ghost" onclick="switchView('citas')" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-check"></i> Agendar ahora</button>
       </div>
-      <div class="services-grid" id="services-grid">
-      </div>
-      
+      <div class="services-grid" id="services-grid"></div>
     </section>
   </div>
 
@@ -157,11 +142,9 @@
     <section class="section">
       <div class="booking-wrap">
         <div class="bk-left">
-        <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
-        <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
-        
-        
-      </div>
+          <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
+          <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
+        </div>
         <div class="bk-form">
           <h3>Solicitar cita</h3>
           <div class="f-grid-2">
@@ -178,51 +161,41 @@
           </div>
           <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
           <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
-          <button class="f-submit" onclick="sendWA()">></>&nbsp; Enviar solicitud</button>
+          <button class="f-submit" onclick="sendWA()"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
         </div>
       </div>
     </section>
   </div>
 
   <!-- UBICACIÓN -->
-<div id="view-ubicacion" class="view">
-  <section class="section">
-    <div class="s-header">
-      <div>
-        <div class="s-label">Ubicación</div>
-        <h2 class="s-title">¿Dónde <em>quedo?</em></h2>
-      </div>
-    </div>
-    <div class="loc-grid">
-      <div class="loc-info">
-        <h3>Información de contacto</h3>
+  <div id="view-ubicacion" class="view">
+    <section class="section">
+      <div class="s-header">
         <div>
-          <strong>Dirección</strong>
-          <span id="location-address">Sin configurar</span>
-        </div>
-        <div>
-          <strong>Horario</strong>
-          <span id="location-schedule">Sin configurar</span>
-        </div>
-        <div>
-          <strong>WhatsApp</strong>
-          <span id="location-whatsapp">Sin configurar</span>
+          <div class="s-label">Ubicación</div>
+          <h2 class="s-title">¿Dónde <em>quedo?</em></h2>
         </div>
       </div>
-
-      <div class="map-embed">
-        <iframe
-          id="business-map"
-          width="100%"
-          height="100%"
-          style="border:0; border-radius:30px;"
-          allowfullscreen=""
-          loading="lazy">
-        </iframe>
+      <div class="loc-grid">
+        <div class="loc-info">
+          <h3>Información de contacto</h3>
+          <div><strong>Dirección</strong><span id="location-address">Sin configurar</span></div>
+          <div><strong>Horario</strong><span id="location-schedule">Sin configurar</span></div>
+          <div><strong>WhatsApp</strong><span id="location-whatsapp">Sin configurar</span></div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            id="business-map"
+            width="100%"
+            height="100%"
+            style="border:0; border-radius:30px;"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
   <!-- RESEÑAS -->
   <div id="view-resenas" class="view">
@@ -269,27 +242,13 @@
 <div class="social-strip">
   <blockquote>"Sígueme en redes para ver mis últimos diseños"</blockquote>
   <div class="soc-links">
-
-    <a id="instagram-link"
-       href="#"
-       class="soc-btn"
-       target="_blank">
-
-       <i class="fa-brands fa-instagram"></i>
-       Instagram
-
+    <a id="instagram-link" href="#" class="soc-btn" target="_blank">
+      <i class="fa-brands fa-instagram"></i> Instagram
     </a>
-
-    <a id="tiktok-link"
-       href="#"
-       class="soc-btn"
-       target="_blank">
-
-       <i class="fa-brands fa-tiktok"></i>
-       TikTok
-
+    <a id="tiktok-link" href="#" class="soc-btn" target="_blank">
+      <i class="fa-brands fa-tiktok"></i> TikTok
     </a>
-
+  </div>
 </div>
 
 <footer>

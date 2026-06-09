@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ANGELESNAILS2007 - Panel Admin</title>
 
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2E1A16">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AngelesNails Admin">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <link rel="stylesheet" href="css/admin.css">
 </head>
 
@@ -17,248 +23,110 @@
 
 <div class="admin-container">
 
-    <aside class="sidebar">
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>ANGELESNAILS2007</h2>
+      <p>Panel Administrativo</p>
+    </div>
+    <nav>
+      <a href="#" class="menu-item active" data-section="dashboard">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </a>
+      <a href="#" class="menu-item" data-section="gallery">
+        <i class="fas fa-images"></i> Galería
+      </a>
+      <a href="#" class="menu-item" data-section="services">
+        <i class="fas fa-spa"></i> Servicios
+      </a>
+      <a href="#" class="menu-item" data-section="social">
+        <i class="fas fa-share-alt"></i> Redes
+      </a>
+      <a href="#" class="menu-item" data-section="appointments">
+        <i class="fas fa-calendar-alt"></i> Citas
+      </a>
+      <a href="#" class="menu-item" data-section="reviews">
+        <i class="fas fa-star"></i> Reseñas
+      </a>
+      <a href="#" class="menu-item" data-section="settings">
+        <i class="fas fa-cog"></i> Configuración
+      </a>
+    </nav>
+  </aside>
 
-        <div class="logo">
-            <h2>ANGELESNAILS2007</h2>
-            <p>Panel Administrativo</p>
-        </div>
-
-        <nav>
-
-            <a href="#" class="menu-item active" data-section="dashboard">
-                <i class="fas fa-chart-line"></i>
-                Dashboard
-            </a>
-
-           <a href="#" class="menu-item" data-section="gallery">
-                <i class="fas fa-images"></i>
-                Galería
-            </a>
-
-           <a href="#" class="menu-item" data-section="services">
-                <i class="fas fa-spa"></i>
-                Servicios
-            </a>
-
-            <a href="#" class="menu-item" data-section="social">
-                <i class="fas fa-share-alt"></i>
-                Redes
-            </a>
-
-            <a href="#" class="menu-item" data-section="appointments">
-                <i class="fas fa-calendar-alt"></i>
-                Citas
-            </a>
-
-            <a href="#" class="menu-item" data-section="reviews">
-                <i class="fas fa-star"></i>
-                Reseñas
-            </a>
-
-           <a href="#" class="menu-item" data-section="settings">
-                <i class="fas fa-cog"></i>
-                Configuración
-            </a>
-
-        </nav>
-
-    </aside>
-<main class="content">
+  <main class="content">
 
     <section id="dashboard-section" class="admin-section active-section">
-
-        <h1>Dashboard</h1>
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>Galería</h3>
-                <span id="gallery-count">0</span>
-            </div>
-
-            <div class="card">
-                <h3>Servicios</h3>
-                <span id="services-count">0</span>
-            </div>
-
-            <div class="card">
-                <h3>Citas</h3>
-                <span id="appointments-count">0</span>
-            </div>
-
-            <div class="card">
-                <h3>Reseñas</h3>
-                <span id="reviews-count">0</span>
-            </div>
-
-        </div>
-
+      <h1>Dashboard</h1>
+      <div class="cards">
+        <div class="card"><h3>Galería</h3><span id="gallery-count">0</span></div>
+        <div class="card"><h3>Servicios</h3><span id="services-count">0</span></div>
+        <div class="card"><h3>Citas</h3><span id="appointments-count">0</span></div>
+        <div class="card"><h3>Reseñas</h3><span id="reviews-count">0</span></div>
+      </div>
     </section>
 
     <section id="gallery-section" class="admin-section">
-
-        <h1>Galería</h1>
-
-        <section class="gallery-admin">
-
-            <h2>Gestión de Galería</h2>
-
-            <div class="upload-box">
-
-                <input type="file"
-                    id="gallery-upload"
-                    multiple
-                    accept="image/*">
-
-                <button id="upload-btn">
-                    Seleccionar imágenes
-                </button>
-
-            </div>
-
-            <div id="gallery-preview" class="gallery-preview"></div>
-
-        </section>
-
+      <h1>Galería</h1>
+      <section class="gallery-admin">
+        <h2>Gestión de Galería</h2>
+        <div class="upload-box">
+          <input type="file" id="gallery-upload" multiple accept="image/*">
+          <button id="upload-btn">Seleccionar imágenes</button>
+        </div>
+        <div id="gallery-preview" class="gallery-preview"></div>
+      </section>
     </section>
 
     <section id="services-section" class="admin-section">
-
-    <h1>Servicios</h1>
-
-    <div class="service-form">
-
-        <input
-            type="file"
-            id="service-image"
-            accept="image/*">
-
-        <input
-            type="text"
-            id="service-name"
-            placeholder="Nombre del servicio">
-
-        <textarea
-            id="service-description"
-            placeholder="Descripción"></textarea>
-
-        <input
-            type="number"
-            id="service-price"
-            placeholder="Precio">
-
-        <button id="save-service">
-            Guardar Servicio
-        </button>
-
-    </div>
-
-    <div id="services-list"></div>
-
-</section>
+      <h1>Servicios</h1>
+      <div class="service-form">
+        <input type="file" id="service-image" accept="image/*">
+        <input type="text" id="service-name" placeholder="Nombre del servicio">
+        <textarea id="service-description" placeholder="Descripción"></textarea>
+        <input type="number" id="service-price" placeholder="Precio">
+        <button id="save-service">Guardar Servicio</button>
+      </div>
+      <div id="services-list"></div>
+    </section>
 
     <section id="social-section" class="admin-section">
-
-    <h1>Redes Sociales</h1>
-
-    <div class="service-form">
-
-        <input
-            type="text"
-            id="whatsapp"
-            placeholder="WhatsApp">
-
-        <input
-            type="text"
-            id="instagram"
-            placeholder="Instagram">
-
-        <input
-            type="text"
-            id="tiktok"
-            placeholder="TikTok">
-
-        <button id="save-social">
-            Guardar Redes
-        </button>
-
-    </div>
-
-</section>
+      <h1>Redes Sociales</h1>
+      <div class="service-form">
+        <input type="text" id="whatsapp" placeholder="WhatsApp (ej: 573001234567)">
+        <input type="text" id="instagram" placeholder="Instagram (URL completa)">
+        <input type="text" id="tiktok" placeholder="TikTok (URL completa)">
+        <button id="save-social">Guardar Redes</button>
+      </div>
+    </section>
 
     <section id="appointments-section" class="admin-section">
-
-        <h1>Citas</h1>
-
-        <div id="appointments-list"></div>
-
+      <h1>Citas</h1>
+      <div id="appointments-list"></div>
     </section>
 
     <section id="reviews-section" class="admin-section">
-
-        <h1>Reseñas</h1>
-
-        <div id="reviews-list"></div>
-
+      <h1>Reseñas</h1>
+      <div id="reviews-list"></div>
     </section>
 
     <section id="settings-section" class="admin-section">
+      <h1>Configuración</h1>
+      <div class="service-form">
+        <input type="text" id="business-map-url" placeholder="URL Google Maps Embed">
+        <input type="text" id="business-name" placeholder="Nombre del negocio">
+        <input type="text" id="business-address" placeholder="Dirección">
+        <input type="text" id="business-schedule" placeholder="Horario">
+        <input type="file" id="business-logo" accept="image/*">
+        <button id="save-settings">Guardar Configuración</button>
+      </div>
+      <div id="logo-preview"></div>
+    </section>
 
-    <h1>Configuración</h1>
+    <button class="logout-btn" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </button>
 
-    <div class="service-form">
-
-        <input
-            type="text"
-            id="business-map-url"
-            placeholder="URL Google Maps Embed">
-
-        <input
-            type="text"
-            id="business-name"
-            placeholder="Nombre del negocio">
-
-        <input
-            type="text"
-            id="business-address"
-            placeholder="Dirección">
-
-        <input
-            type="text"
-            id="business-schedule"
-            placeholder="Horario">
-
-        <input
-            type="file"
-            id="business-logo"
-            accept="image/*">
-
-        <button id="save-settings">
-            Guardar Configuración
-        </button>
-
-    </div>
-
-    <div id="logo-preview"></div>
-
-</section>
-
-
-<button class="logout-btn" onclick="logout()">
-    <i class="fas fa-sign-out-alt"></i>
-    Cerrar sesión
-</button>
-
-
-
-
-
-
-
-
-
-</main>
+  </main>
 
 </div>
 
@@ -266,4 +134,3 @@
 
 </body>
 </html>
-
