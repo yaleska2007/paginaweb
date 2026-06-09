@@ -1,4 +1,4 @@
-const CACHE = "angelesnails-v1";
+const CACHE = "angelesnails-v2";
 const ASSETS = [
   "/",
   "/index.html",
