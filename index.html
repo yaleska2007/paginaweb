@@ -138,34 +138,30 @@
   </div>
 
   <!-- CITAS -->
-  <div id="view-citas" class="view">
-    <section class="section">
-      <div class="booking-wrap">
-        <div class="bk-left">
-          <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
-          <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
-        </div>
-        <div class="bk-form">
-          <h3>Solicitar cita</h3>
-          <div class="f-grid-2">
-            <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
-            <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
-          </div>
-          <div class="f-row">
-            <label>Servicio de interés</label>
-            <select id="f-service">
-              <option value="">Selecciona un servicio…</option>
-              <option>Acrílicas</option><option>Semipermanente</option><option>Gel</option>
-              <option>Retoque / mantenimiento</option><option>Nail art / Diseño especial</option>
-            </select>
-          </div>
-          <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
-          <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
-          <button class="f-submit" onclick="sendWA()"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
-        </div>
+<div id="view-citas" class="view">
+  <section class="section">
+    <div class="booking-wrap">
+      <div class="bk-left">
+        <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
+        <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
       </div>
-    </section>
-  </div>
+      <div class="bk-form">
+        <h3>Solicitar cita</h3>
+        <div class="f-grid-2">
+          <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
+          <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
+        </div>
+        <div class="f-row">
+          <label>Servicio de interés</label>
+          <input id="f-service" type="text" placeholder="Ej: Acrílicas con nail art 💅"/>
+        </div>
+        <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
+        <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
+        <button class="f-submit" onclick="sendWA()"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
+      </div>
+    </div>
+  </section>
+</div>
 
   <!-- UBICACIÓN -->
   <div id="view-ubicacion" class="view">
