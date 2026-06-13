@@ -1,24 +1,21 @@
 {
-  "name": "Angeles Nails Admin",
-  "short_name": "AN Admin",
-  "description": "Panel administrativo ANGELESNAILS2007",
-  "start_url": "/admin.html",
+  "name": "Admin AngelesNails2007",
+  "short_name": "AdminNails",
+  "start_url": "admin.html",
   "display": "standalone",
-  "background_color": "#FAF8F4",
-  "theme_color": "#2E1A16",
+  "background_color": "#2E1A16",
+  "theme-color": "#2E1A16",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icons/icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
