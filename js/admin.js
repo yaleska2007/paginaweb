@@ -333,3 +333,57 @@ window.addEventListener("DOMContentLoaded", () => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").catch(err => console.error("SW err:", err));
 }
+
+
+
+
+
+
+
+
+// =========================================================================
+// CONFIGURACIÓN DE NOTIFICACIONES PUSH (FIREBASE MESSAGING)
+// =========================================================================
+import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const messaging = getMessaging();
+const db = getFirestore();
+
+function activarNotificacionesAdministrador() {
+  // Solicitar permiso en el celular o PC
+  Notification.requestPermission().then((permission) => {
+    if (permission === 'granted') {
+      console.log('Permiso de notificaciones concedido.');
+
+      // Obtener el Token usando tu clave pública de Firebase
+      getToken(messaging, { vapidKey: 'BDeentbXItElajHvOcO4UDAOvpqibO7Kver65O4Wym2sGHpQSkyptKdgyuzMcQmVQttlXW2FsLivHSOZclWmtg' })
+        .then((currentToken) => {
+          if (currentToken) {
+            console.log("Token obtenido con éxito.");
+            
+            // Guardar el token en Firestore en la colección "admin_tokens"
+            setDoc(doc(db, "admin_tokens", "dispositivo_admin"), {
+              token: currentToken,
+              actualizado: new Date().toISOString(),
+              usuario: "Administrador / Yaleska"
+            }).then(() => {
+              console.log("Token registrado en la base de datos.");
+            });
+
+          } else {
+            console.log('No se pudo generar el token.');
+          }
+        }).catch((err) => {
+          console.error('Error al obtener token VAPID: ', err);
+        });
+    } else {
+      console.warn('Permiso de notificaciones denegado.');
+    }
+  });
+}
+
+// Ejecutar la solicitud automáticamente al cargar el panel
+window.addEventListener('load', () => {
+  activarNotificacionesAdministrador();
+});
