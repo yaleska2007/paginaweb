@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ANGELESNAILS2007 — Nail Studio</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANGELESNAILS2007 — Nail Studio</title>
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2E1A16">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="AngelesNails">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2E1A16">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AngelesNails">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <nav id="main-nav">
-  <div class="nav-logo">
+<div class="nav-logo">
     <img
-      id="business-logo-display"
-      src=""
-      alt="Logo"
-      style="width:50px;height:50px;object-fit:cover;border-radius:50%;margin-right:10px;display:none;">
+        id="business-logo-display"
+        src=""
+        alt="Logo"
+        style="width:50px;height:50px;object-fit:cover;border-radius:50%;margin-right:10px;display:none;">
     <div id="business-name-display">
-  <span class="dot">✦</span>
-  ANGELESNAILS2007 - PROBANDO
+        <span class="dot">✦</span>
+        ANGELESNAILS2007
+    </div>
 </div>
-  </div>
   <ul class="nav-tabs" role="tablist">
-    <li><button data-view="inicio" class="active" role="tab">Inicio</button></li>
-    <li><button data-view="servicios" role="tab">Servicios</button></li>
-    <li><button data-view="galeria" role="tab">Galería</button></li>
-    <li><button data-view="citas" role="tab">Citas</button></li>
-    <li><button data-view="ubicacion" role="tab">Ubicación</button></li>
-    <li><button data-view="resenas" role="tab">Reseñas</button></li>
+    <li><button data-view="inicio"    class="active" role="tab">Inicio</button></li>
+    <li><button data-view="servicios"               role="tab">Servicios</button></li>
+    <li><button data-view="galeria"                 role="tab">Galería</button></li>
+    <li><button data-view="citas"                   role="tab">Citas</button></li>
+    <li><button data-view="ubicacion"               role="tab">Ubicación</button></li>
+    <li><button data-view="resenas"                 role="tab">Reseñas</button></li>
   </ul>
   <a id="nav-whatsapp" href="#" class="nav-cta-btn" target="_blank">
     <i class="fa-brands fa-whatsapp"></i> Agendar cita
@@ -45,20 +46,21 @@
 </nav>
 
 <a id="float-whatsapp" href="#" class="wa-float" target="_blank">
-  <i class="fa-brands fa-whatsapp"></i>
+    <i class="fa-brands fa-whatsapp"></i>
 </a>
 
 <nav class="mobile-nav" id="mobile-nav">
-  <button data-view="inicio" class="active"><i class="fa-solid fa-house"></i>Inicio</button>
-  <button data-view="servicios"><i class="fa-solid fa-spa"></i>Servicios</button>
-  <button data-view="galeria"><i class="fa-solid fa-images"></i>Galería</button>
-  <button data-view="citas"><i class="fa-solid fa-calendar-check"></i>Citas</button>
-  <button data-view="ubicacion"><i class="fa-solid fa-location-dot"></i>Ubicación</button>
-  <button data-view="resenas"><i class="fa-solid fa-star"></i>Reseñas</button>
+  <button data-view="inicio"    class="active"><i class="fa-solid fa-house"></i>Inicio</button>
+  <button data-view="servicios"               ><i class="fa-solid fa-spa"></i>Servicios</button>
+  <button data-view="galeria"                 ><i class="fa-solid fa-images"></i>Galería</button>
+  <button data-view="citas"                   ><i class="fa-solid fa-calendar-check"></i>Citas</button>
+  <button data-view="ubicacion"               ><i class="fa-solid fa-location-dot"></i>Ubicación</button>
+  <button data-view="resenas"                 ><i class="fa-solid fa-star"></i>Reseñas</button>
 </nav>
 
 <div id="app">
 
+  <!-- INICIO -->
   <div id="view-inicio" class="view active">
     <section class="hero">
       <div class="hero-left">
@@ -72,11 +74,11 @@
           Cada diseño pensado para ti, hecho con amor y precisión.
         </p>
         <div class="hero-actions">
-          <button class="btn-gold" data-go-to="citas">
+          <button class="btn-gold" onclick="switchView('citas')">
             <i class="fa-solid fa-calendar-plus"></i>
             Agendar cita
           </button>
-          <button class="btn-ghost" data-go-to="galeria">
+          <button class="btn-ghost" onclick="switchView('galeria')">
             <i class="fa-solid fa-images"></i>
             Ver portafolio
           </button>
@@ -113,51 +115,55 @@
     </section>
   </div>
 
+  <!-- SERVICIOS -->
   <div id="view-servicios" class="view">
     <section class="section">
       <div class="s-header">
         <div><div class="s-label">Servicios</div><h2 class="s-title">Lo que <em>ofrezco</em> para ti</h2></div>
-        <button class="btn-ghost" data-go-to="citas" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-check"></i> Agendar ahora</button>
+        <button class="btn-ghost" onclick="switchView('citas')" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-check"></i> Agendar ahora</button>
       </div>
       <div class="services-grid" id="services-grid"></div>
     </section>
   </div>
 
+  <!-- GALERÍA -->
   <div id="view-galeria" class="view">
     <section class="section">
       <div class="s-header">
         <div><div class="s-label">Portafolio</div><h2 class="s-title">Mis <em>trabajos</em></h2></div>
-        <button class="btn-ghost" data-go-to="citas" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-plus"></i> Quiero uno así</button>
+        <button class="btn-ghost" onclick="switchView('citas')" style="color:var(--c-espresso)"><i class="fa-solid fa-calendar-plus"></i> Quiero uno así</button>
       </div>
       <div class="gallery-masonry" id="gallery-grid"></div>
     </section>
   </div>
 
-  <div id="view-citas" class="view">
-    <section class="section">
-      <div class="booking-wrap">
-        <div class="bk-left">
-          <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
-          <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
-        </div>
-        <div class="bk-form">
-          <h3>Solicitar cita</h3>
-          <div class="f-grid-2">
-            <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
-            <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
-          </div>
-          <div class="f-row">
-            <label>Servicio de interés</label>
-            <input id="f-service" type="text" placeholder="Ej: Acrílicas con nail art... 💅"/>
-          </div>
-          <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
-          <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
-          <button class="f-submit" id="btn-send-appointment"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
-        </div>
+  <!-- CITAS -->
+<div id="view-citas" class="view">
+  <section class="section">
+    <div class="booking-wrap">
+      <div class="bk-left">
+        <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
+        <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
       </div>
-    </section>
-  </div>
+      <div class="bk-form">
+        <h3>Solicitar cita</h3>
+        <div class="f-grid-2">
+          <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
+          <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
+        </div>
+        <div class="f-row">
+          <label>Servicio de interés</label>
+          <input id="f-service" type="text" placeholder="Ej: Acrílicas con nail art... 💅"/>
+        </div>
+        <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
+        <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
+        <button class="f-submit" onclick="sendWA()"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
+      </div>
+    </div>
+  </section>
+</div>
 
+  <!-- UBICACIÓN -->
   <div id="view-ubicacion" class="view">
     <section class="section">
       <div class="s-header">
@@ -181,12 +187,13 @@
             style="border:0; border-radius:30px;"
             allowfullscreen=""
             loading="lazy">
-          </table>
+          </iframe>
         </div>
       </div>
     </section>
   </div>
 
+  <!-- RESEÑAS -->
   <div id="view-resenas" class="view">
     <section class="section">
       <div class="s-header"><div><div class="s-label">Opiniones</div><h2 class="s-title">Lo que dicen mis <em>clientas</em></h2></div></div>
@@ -221,12 +228,14 @@
           </div>
         </div>
         <div class="f-row"><label>Tu comentario</label><textarea id="rv-comment" rows="3" placeholder="Cuéntale a otras clientas cómo fue tu experiencia…"></textarea></div>
-        <button class="f-submit" id="btn-submit-review" style="max-width:320px;"><i class="fa-solid fa-paper-plane"></i>&nbsp; Publicar reseña</button>
+        <button class="f-submit" onclick="submitReview()" style="max-width:320px;"><i class="fa-solid fa-paper-plane"></i>&nbsp; Publicar reseña</button>
       </div>
     </section>
   </div>
 
-</div><div class="social-strip">
+</div><!-- /#app -->
+
+<div class="social-strip">
   <blockquote>"Sígueme en redes para ver mis últimos diseños"</blockquote>
   <div class="soc-links">
     <a id="instagram-link" href="#" class="soc-btn" target="_blank">
@@ -251,58 +260,6 @@
 
 <div class="rv-toast" id="rv-toast"></div>
 <script type="module" src="js/app.js"></script>
-
-</body>
-</html>
-
-
-
-
-<script type="module" src="js/app.js"></script>
-
-<script>
-  // Script de emergencia para forzar el funcionamiento de los botones
-  document.addEventListener("DOMContentLoaded", () => {
-    function forzarCambioPestaña(id) {
-      // 1. Ocultar todas las vistas
-      document.querySelectorAll(".view").forEach(v => {
-        v.classList.remove("active");
-        v.style.display = "none"; // Forzado por CSS directo
-      });
-      
-      // 2. Mostrar la vista que queremos
-      const target = document.getElementById("view-" + id);
-      if (target) {
-        target.classList.add("active");
-        target.style.display = "block"; // Forzado por CSS directo
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-      
-      // 3. Iluminar el botón activo en el menú
-      document.querySelectorAll("[data-view]").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.view === id);
-      });
-    }
-
-    // Escuchar los clics en el menú superior y móvil
-    document.querySelectorAll("[data-view]").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const destino = btn.getAttribute("data-view");
-        if (destino) forzarCambioPestaña(destino);
-      });
-    });
-
-    // Escuchar los botones de "Agendar cita" y "Ver portafolio" del inicio
-    document.querySelectorAll("[data-go-to]").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const destino = btn.getAttribute("data-go-to");
-        if (destino) forzarCambioPestaña(destino);
-      });
-    });
-    
-    console.log("🚀 Sistema de navegación de emergencia activado correctamente.");
-  });
-</script>
 
 </body>
 </html>
