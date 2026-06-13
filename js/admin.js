@@ -1,12 +1,14 @@
 import { auth, db } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import {
   doc, getDoc, setDoc, collection,
   addDoc, getDocs, deleteDoc, updateDoc
-} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
 
 const CLOUD_NAME = "dspfnujtv";
 const UPLOAD_PRESET = "angelesnails_upload";
+const messaging = getMessaging();
 
 // ── Auth guard ────────────────────────────────────────────
 onAuthStateChanged(auth, (user) => {
@@ -165,7 +167,7 @@ async function loadSettings() {
     if (snap.exists()) {
       const d = snap.data();
       if(document.getElementById("business-map-url")) document.getElementById("business-map-url").value  = d.mapUrl   || "";
-      if(document.getElementById("business-name")) document.getElementById("business-name").value     = d.name     || "";
+      if(document.getElementById("business-name")) document.getElementById("business-name").value      = d.name     || "";
       if(document.getElementById("business-address")) document.getElementById("business-address").value  = d.address  || "";
       if(document.getElementById("business-schedule")) document.getElementById("business-schedule").value = d.schedule || "";
       if (d.logo && document.getElementById("logo-preview")) {
@@ -195,7 +197,7 @@ saveSettingsBtn?.addEventListener("click", async () => {
   alert("Configuración guardada ✅");
 });
 
-// ── CITAS (MUESTRA EL TEXTO MANUAL DEL CLIENTE) ───────────
+// ── CITAS ─────────────────────────────────────────────────
 const appointmentsList = document.getElementById("appointments-list");
 
 async function loadAppointments() {
@@ -216,7 +218,6 @@ async function loadAppointments() {
       const card = document.createElement("div");
       card.classList.add("service-card");
       
-      // ${a.service} renderiza directamente la cadena de texto manual guardada por el cliente
       card.innerHTML = `
         <h3>${a.name}</h3>
         <p><strong>WhatsApp:</strong> ${a.phone}</p>
@@ -314,55 +315,22 @@ async function updateDashboard() {
 
 // ── Logout ─────────────────────────────────────────────────
 window.logout = async () => {
-  const { signOut } = await import("https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js");
+  const { signOut } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
   await signOut(auth);
   window.location = "login.html";
 };
 
-// ── Init ──────────────────────────────────────────────────
-window.addEventListener("DOMContentLoaded", () => {
-  loadGallery();
-  loadServices();
-  loadSocialData();
-  loadSettings();
-  loadAppointments();
-  loadReviewsAdmin();
-});
-
-// Registrar service worker
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").catch(err => console.error("SW err:", err));
-}
-
-
-
-
-
-
-
-
-// =========================================================================
-// CONFIGURACIÓN DE NOTIFICACIONES PUSH (FIREBASE MESSAGING)
-// =========================================================================
-import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
-import { getFirestore, collection, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const messaging = getMessaging();
-const db = getFirestore();
-
+// ── SOLICITUD DE NOTIFICACIONES PUSH ───────────────────────
 function activarNotificacionesAdministrador() {
-  // Solicitar permiso en el celular o PC
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       console.log('Permiso de notificaciones concedido.');
 
-      // Obtener el Token usando tu clave pública de Firebase
       getToken(messaging, { vapidKey: 'BDeentbXItElajHvOcO4UDAOvpqibO7Kver65O4Wym2sGHpQSkyptKdgyuzMcQmVQttlXW2FsLivHSOZclWmtg' })
         .then((currentToken) => {
           if (currentToken) {
             console.log("Token obtenido con éxito.");
             
-            // Guardar el token en Firestore en la colección "admin_tokens"
             setDoc(doc(db, "admin_tokens", "dispositivo_admin"), {
               token: currentToken,
               actualizado: new Date().toISOString(),
@@ -383,7 +351,18 @@ function activarNotificacionesAdministrador() {
   });
 }
 
-// Ejecutar la solicitud automáticamente al cargar el panel
-window.addEventListener('load', () => {
-  activarNotificacionesAdministrador();
+// ── Init (Carga todo en orden y al mismo tiempo) ───────────
+window.addEventListener("DOMContentLoaded", () => {
+  loadGallery();
+  loadServices();
+  loadSocialData();
+  loadSettings();
+  loadAppointments();
+  loadReviewsAdmin();
+  activarNotificacionesAdministrador(); // Llamar a las notificaciones aquí dentro
 });
+
+// Registrar service worker
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").catch(err => console.error("SW err:", err));
+}
