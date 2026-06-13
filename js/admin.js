@@ -1,16 +1,12 @@
 import { auth, db } from "./firebase-config.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 import {
   doc, getDoc, setDoc, collection,
   addDoc, getDocs, deleteDoc, updateDoc
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 const CLOUD_NAME = "dspfnujtv";
 const UPLOAD_PRESET = "angelesnails_upload";
-
-// SOLUCIÓN AQUÍ: Inicializar "messaging" usando la app conectada de auth
-const messaging = getMessaging(auth.app);
 
 // ── Auth guard ────────────────────────────────────────────
 onAuthStateChanged(auth, (user) => {
@@ -169,7 +165,7 @@ async function loadSettings() {
     if (snap.exists()) {
       const d = snap.data();
       if(document.getElementById("business-map-url")) document.getElementById("business-map-url").value  = d.mapUrl   || "";
-      if(document.getElementById("business-name")) document.getElementById("business-name").value      = d.name     || "";
+      if(document.getElementById("business-name")) document.getElementById("business-name").value     = d.name     || "";
       if(document.getElementById("business-address")) document.getElementById("business-address").value  = d.address  || "";
       if(document.getElementById("business-schedule")) document.getElementById("business-schedule").value = d.schedule || "";
       if (d.logo && document.getElementById("logo-preview")) {
@@ -199,7 +195,7 @@ saveSettingsBtn?.addEventListener("click", async () => {
   alert("Configuración guardada ✅");
 });
 
-// ── CITAS ─────────────────────────────────────────────────
+// ── CITAS (MUESTRA EL TEXTO MANUAL DEL CLIENTE) ───────────
 const appointmentsList = document.getElementById("appointments-list");
 
 async function loadAppointments() {
@@ -220,6 +216,7 @@ async function loadAppointments() {
       const card = document.createElement("div");
       card.classList.add("service-card");
       
+      // ${a.service} renderiza directamente la cadena de texto manual guardada por el cliente
       card.innerHTML = `
         <h3>${a.name}</h3>
         <p><strong>WhatsApp:</strong> ${a.phone}</p>
@@ -317,31 +314,10 @@ async function updateDashboard() {
 
 // ── Logout ─────────────────────────────────────────────────
 window.logout = async () => {
-  const { signOut } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js");
+  const { signOut } = await import("https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js");
   await signOut(auth);
   window.location = "login.html";
 };
-
-// ── SOLICITUD DE NOTIFICACIONES PUSH ───────────────────────
-function activarNotificacionesAdministrador() {
-  getToken(messaging, { vapidKey: 'BDeentbXItElajHvOcO4UDAOvpqibO7Kver65O4Wym2sGHpQSkyptKdgyuzMcQmVQttlXW2FsLivHSOZclWmtg' })
-    .then((currentToken) => {
-      if (currentToken) {
-        console.log("Token obtenido con éxito.");
-        setDoc(doc(db, "admin_tokens", "dispositivo_admin"), {
-          token: currentToken,
-          actualizado: new Date().toISOString(),
-          usuario: "Administrador / Yaleska"
-        }).then(() => {
-          console.log("Token registrado en la base de datos.");
-        });
-      } else {
-        console.log('No se pudo generar el token.');
-      }
-    }).catch((err) => {
-      console.error('Error al obtener token VAPID: ', err);
-    });
-}
 
 // ── Init ──────────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", () => {
@@ -351,16 +327,6 @@ window.addEventListener("DOMContentLoaded", () => {
   loadSettings();
   loadAppointments();
   loadReviewsAdmin();
-
-  // Pedir permisos y activar de forma segura cuando todo cargue
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log('Permiso de notificaciones concedido.');
-      activarNotificacionesAdministrador();
-    } else {
-      console.warn('Permiso de notificaciones denegado.');
-    }
-  });
 });
 
 // Registrar service worker
