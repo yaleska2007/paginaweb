@@ -1,40 +1,51 @@
-import { db } from "./firebase-config.js";
+// ── 1. IMPORTACIONES DIRECTAS DE FIREBASE ─────────────────────
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
-  doc, getDoc, collection, getDocs, addDoc 
+  getFirestore, doc, getDoc, collection, getDocs, addDoc 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// ── Variables Globales ────────────────────────────────────
+// ── 2. CONFIGURACIÓN DE TU PROYECTO ───────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyDSDHg0VIb4EMfIwdToFPg6lFm4q2LUbU4",
+  authDomain: "angelesnails2007-9c995.firebaseapp.com",
+  projectId: "angelesnails2007-9c995",
+  storageBucket: "angelesnails2007-9c995.firebasestorage.app",
+  messagingSenderId: "860423923384",
+  appId: "1:860423923384:web:caa807ab5094370e1a764d"
+};
+
+// Inicializar Firebase y Base de Datos en un solo lugar
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── 3. VARIABLES GLOBALES ────────────────────────────────────
 let selectedStars = 0;
 const STAR_LABELS = ["", "Malo 😞", "Regular 😐", "Bueno 😊", "Muy bueno 😍", "¡Excelente! 🌟"];
 
-// ── Navegación SPA (Single Page Application) ──────────────
+// ── 4. NAVEGACIÓN SPA (Single Page Application) ──────────────
 function switchView(id) {
-  // Ocultar todas las vistas de forma segura
   document.querySelectorAll(".view").forEach(v => {
     v.classList.remove("active");
   });
   
-  // Mostrar la vista seleccionada
   const target = document.getElementById("view-" + id);
   if (target) { 
     target.classList.add("active"); 
     window.scrollTo({ top: 0, behavior: "smooth" }); 
   }
   
-  // Marcar como activo el botón correspondiente en los menús (Tab y Móvil)
   document.querySelectorAll("[data-view]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.view === id);
   });
   
-  // Cargar datos pesados de Firebase solo cuando el cliente entra a la sección
   if (id === "galeria") buildGallery();
   if (id === "resenas") buildReviews();
 }
 
-// ── Galería ───────────────────────────────────────────────
+// ── 5. GALERÍA ───────────────────────────────────────────────
 async function buildGallery() {
   const grid = document.getElementById("gallery-grid");
-  if (!grid || grid.children.length) return; // Si ya tiene fotos cargadas, no repite el proceso
+  if (!grid || grid.children.length) return; 
   
   try {
     const snap = await getDocs(collection(db, "gallery"));
@@ -56,7 +67,7 @@ async function buildGallery() {
   }
 }
 
-// ── Lightbox (Visor de fotos) ─────────────────────────────
+// ── 6. LIGHTBOX ──────────────────────────────────────────────
 function openLightbox(src, alt) {
   document.getElementById("lightbox-img").src = src;
   document.getElementById("lightbox-img").alt = alt;
@@ -73,11 +84,8 @@ document.getElementById("lightbox-close")?.addEventListener("click", closeLightb
 document.getElementById("lightbox")?.addEventListener("click", e => { 
   if (e.target === e.currentTarget) closeLightbox(); 
 });
-document.addEventListener("keydown", e => { 
-  if (e.key === "Escape") closeLightbox(); 
-});
 
-// ── Servicios ─────────────────────────────────────────────
+// ── 7. SERVICIOS ─────────────────────────────────────────────
 async function loadServices() {
   const grid = document.getElementById("services-grid");
   if (!grid) return;
@@ -106,7 +114,7 @@ async function loadServices() {
   }
 }
 
-// ── Redes sociales ────────────────────────────────────────
+// ── 8. REDES SOCIALES ────────────────────────────────────────
 async function loadSocialLinks() {
   try {
     const snap = await getDoc(doc(db, "config", "social"));
@@ -124,7 +132,7 @@ async function loadSocialLinks() {
   }
 }
 
-// ── Configuración del negocio ─────────────────────────────
+// ── 9. CONFIGURACIÓN DEL NEGOCIO ─────────────────────────────
 async function loadBusinessSettings() {
   try {
     const [settingsSnap, socialSnap] = await Promise.all([
@@ -134,7 +142,6 @@ async function loadBusinessSettings() {
 
     if (settingsSnap.exists()) {
       const d = settingsSnap.data();
-
       const map = document.getElementById("business-map");
       if (map && d.mapUrl) map.src = d.mapUrl;
 
@@ -166,7 +173,7 @@ async function loadBusinessSettings() {
   }
 }
 
-// ── Reseñas (Calculos y Render) ───────────────────────────
+// ── 10. RESEÑAS ──────────────────────────────────────────────
 function starsHTML(n) {
   return Array.from({ length: 5 }, (_, i) =>
     `<i class="fa-solid fa-star${i >= n ? " empty" : ""}"></i>`
@@ -196,22 +203,17 @@ async function buildReviews() {
       grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--c-muted);font-style:italic;">Sé la primera en dejar tu reseña 🌸</div>`;
       return;
     }
-    const sorted = [...reviews].sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return new Date(b.date) - new Date(a.date);
-    });
+    const sorted = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
     sorted.forEach(r => {
       const card = document.createElement("div");
       card.className = "rv-card" + (r.featured ? " featured" : "");
       card.innerHTML = `
         <div class="rv-card-top">
-          <div class="rv-avatar ${r.featured ? "featured-av" : ""}">${r.name.trim().charAt(0).toUpperCase()}</div>
+          <div class="rv-avatar">${r.name.trim().charAt(0).toUpperCase()}</div>
           <div class="rv-card-stars">${starsHTML(r.stars)}</div>
         </div>
         <p class="rv-text">"${r.comment}"</p>
         <div class="rv-author">${r.name}<span class="rv-date">${formatDate(r.date)}</span></div>
-        ${r.service ? `<span class="rv-service">${r.service}</span>` : ""}
       `;
       grid.appendChild(card);
     });
@@ -227,130 +229,41 @@ function buildSummary(reviews) {
   const avg = reviews.reduce((a, r) => a + r.stars, 0) / (reviews.length || 1);
   avgEl.textContent = avg.toFixed(1);
   document.getElementById("rv-avg-stars").innerHTML = starsHTML(Math.round(avg));
-  document.getElementById("rv-avg-stars").querySelectorAll("i").forEach(i => i.style.color = "var(--c-gold)");
-  document.getElementById("rv-total-label").textContent = reviews.length === 1 ? "1 reseña" : `${reviews.length} reseñas`;
-
-  const counts = [0, 0, 0, 0, 0];
-  reviews.forEach(r => { if (r.stars >= 1 && r.stars <= 5) counts[r.stars - 1]++; });
-  const barsEl = document.getElementById("rv-bars");
-  if (!barsEl) return;
-  barsEl.innerHTML = "";
-  for (let s = 5; s >= 1; s--) {
-    const pct = reviews.length ? Math.round((counts[s - 1] / reviews.length) * 100) : 0;
-    barsEl.insertAdjacentHTML("beforeend", `
-      <div class="rv-bar-row">
-        <span>${s}</span>
-        <i class="fa-solid fa-star" style="color:var(--c-gold);font-size:.7rem;flex-shrink:0"></i>
-        <div class="rv-bar-track"><div class="rv-bar-fill" style="width:${pct}%"></div></div>
-        <span class="rv-bar-count">${counts[s - 1]}</span>
-      </div>
-    `);
-  }
+  document.getElementById("rv-total-label").textContent = `${reviews.length} reseñas`;
 }
 
-// ── Selector de Estrellas (Formulario) ────────────────────
+// ── 11. SELECTOR DE ESTRELLAS FORMULARIO ─────────────────────
 document.querySelectorAll("#star-picker button").forEach(btn => {
   btn.addEventListener("click", () => {
     selectedStars = parseInt(btn.dataset.v);
     document.querySelectorAll("#star-picker button").forEach((b, i) => {
       b.classList.toggle("lit", i < selectedStars);
-      b.style.color = i < selectedStars ? "var(--c-gold)" : "";
     });
     document.getElementById("star-hint").textContent = STAR_LABELS[selectedStars];
   });
-  btn.addEventListener("mouseenter", () => {
-    const hovered = parseInt(btn.dataset.v);
-    document.querySelectorAll("#star-picker button").forEach((b, i) => {
-      b.style.color = i < hovered ? "var(--c-gold)" : "rgba(200,168,130,.25)";
-    });
-  });
-  btn.addEventListener("mouseleave", () => {
-    document.querySelectorAll("#star-picker button").forEach((b, i) => {
-      b.style.color = i < selectedStars ? "var(--c-gold)" : "";
-    });
-  });
 });
 
-// ── Toast (Alertas Flotantes) ─────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById("rv-toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 3200);
-}
-
-// ── Enviar Reseña a Firestore ─────────────────────────────
+// ── 12. ENVIAR RESEÑA A FIRESTORE ────────────────────────────
 document.getElementById("btn-submit-review")?.addEventListener("click", async () => {
   const name    = document.getElementById("rv-name").value.trim();
-  const service = document.getElementById("rv-service").value;
   const comment = document.getElementById("rv-comment").value.trim();
   
-  if (!selectedStars) { showToast("⭐ Por favor selecciona una calificación"); return; }
-  if (!name)          { showToast("✏️ Escribe tu nombre para publicar"); return; }
-  if (!comment)       { showToast("💬 Agrega un comentario sobre tu experiencia"); return; }
+  if (!selectedStars || !name || !comment) return;
 
   try {
     const today = new Date().toISOString().split("T")[0];
     await addDoc(collection(db, "reviews"), {
-      name, stars: selectedStars, service, comment,
-      date: today, featured: false, approved: false
+      name, stars: selectedStars, comment, date: today, approved: false
     });
-
-    selectedStars = 0;
-    document.getElementById("rv-name").value    = "";
-    document.getElementById("rv-service").value = "";
-    document.getElementById("rv-comment").value = "";
-    document.getElementById("star-hint").textContent = "Selecciona una calificación:";
-    document.querySelectorAll("#star-picker button").forEach(b => { b.classList.remove("lit"); b.style.color = ""; });
-
-    showToast("🌸 ¡Gracias! Tu reseña fue enviada y será publicada pronto");
+    alert("Reseña enviada con éxito 🌸");
   } catch (error) {
-    console.error("Error al enviar reseña:", error);
-    showToast("❌ Hubo un problema al guardar tu reseña.");
+    console.error(error);
   }
 });
 
-// ── Enviar Formulario de Citas a Firestore ────────────────
-document.getElementById("btn-send-appointment")?.addEventListener("click", async () => {
-  const name    = document.getElementById("f-name").value.trim();
-  const phone   = document.getElementById("f-phone").value.trim();
-  const service = document.getElementById("f-service").value.trim();
-  const date    = document.getElementById("f-date").value;
-  const message = document.getElementById("f-msg").value.trim();
-
-  if (!name || !phone || !service || !date) {
-    alert("Completa todos los campos obligatorios.");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "appointments"), {
-      name, phone, service, date,
-      message: message || "",
-      status: "Pendiente"
-    });
-
-    alert("Solicitud enviada correctamente ✅");
-    document.getElementById("f-name").value    = "";
-    document.getElementById("f-phone").value   = "";
-    document.getElementById("f-service").value = "";
-    document.getElementById("f-date").value    = "";
-    document.getElementById("f-msg").value     = "";
-  } catch (error) {
-    console.error("Error al enviar cita:", error);
-    alert("Hubo un error al procesar tu reserva. Inténtalo de nuevo.");
-  }
-});
-
-// ── Sombra del Menú Superior en Scroll ────────────────────
-window.addEventListener("scroll", () => {
-  document.getElementById("main-nav")?.classList.toggle("scrolled", window.scrollY > 10);
-});
-
-// ── Inicialización Segura (Init) ──────────────────────────
-window.addEventListener("DOMContentLoaded", async () => {
-  // 1. ACTIVAR BOTONES INMEDIATAMENTE (Evita congelamientos de interfaz)
+// ── 13. INICIALIZACIÓN (DOM Content Loaded) ──────────────────
+window.addEventListener("DOMContentLoaded", () => {
+  // Activar botones de cambio de vista inmediatamente
   document.querySelectorAll("[data-view]").forEach(btn => {
     btn.addEventListener("click", () => switchView(btn.dataset.view));
   });
@@ -359,19 +272,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     btn.addEventListener("click", () => switchView(btn.dataset.goTo));
   });
 
-  // 2. CARGA DE BASES DE DATOS EN SEGUNDO PLANO
-  try {
-    await Promise.all([
-      loadSocialLinks(),
-      loadBusinessSettings(),
-      loadServices()
-    ]);
-  } catch (err) {
-    console.error("Error cargando componentes iniciales de Firebase:", err);
-  }
+  // Cargar configuraciones iniciales
+  loadSocialLinks();
+  loadBusinessSettings();
+  loadServices();
 });
-
-// Registrar Service Worker para soporte PWA
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").catch(err => console.log("SW error:", err));
-}
