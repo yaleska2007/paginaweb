@@ -8,7 +8,9 @@ import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.8.
 
 const CLOUD_NAME = "dspfnujtv";
 const UPLOAD_PRESET = "angelesnails_upload";
-const messaging = getMessaging();
+
+// SOLUCIÓN AQUÍ: Inicializar "messaging" usando la app conectada de auth
+const messaging = getMessaging(auth.app);
 
 // ── Auth guard ────────────────────────────────────────────
 onAuthStateChanged(auth, (user) => {
@@ -322,36 +324,26 @@ window.logout = async () => {
 
 // ── SOLICITUD DE NOTIFICACIONES PUSH ───────────────────────
 function activarNotificacionesAdministrador() {
-  Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
-      console.log('Permiso de notificaciones concedido.');
-
-      getToken(messaging, { vapidKey: 'BDeentbXItElajHvOcO4UDAOvpqibO7Kver65O4Wym2sGHpQSkyptKdgyuzMcQmVQttlXW2FsLivHSOZclWmtg' })
-        .then((currentToken) => {
-          if (currentToken) {
-            console.log("Token obtenido con éxito.");
-            
-            setDoc(doc(db, "admin_tokens", "dispositivo_admin"), {
-              token: currentToken,
-              actualizado: new Date().toISOString(),
-              usuario: "Administrador / Yaleska"
-            }).then(() => {
-              console.log("Token registrado en la base de datos.");
-            });
-
-          } else {
-            console.log('No se pudo generar el token.');
-          }
-        }).catch((err) => {
-          console.error('Error al obtener token VAPID: ', err);
+  getToken(messaging, { vapidKey: 'BDeentbXItElajHvOcO4UDAOvpqibO7Kver65O4Wym2sGHpQSkyptKdgyuzMcQmVQttlXW2FsLivHSOZclWmtg' })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log("Token obtenido con éxito.");
+        setDoc(doc(db, "admin_tokens", "dispositivo_admin"), {
+          token: currentToken,
+          actualizado: new Date().toISOString(),
+          usuario: "Administrador / Yaleska"
+        }).then(() => {
+          console.log("Token registrado en la base de datos.");
         });
-    } else {
-      console.warn('Permiso de notificaciones denegado.');
-    }
-  });
+      } else {
+        console.log('No se pudo generar el token.');
+      }
+    }).catch((err) => {
+      console.error('Error al obtener token VAPID: ', err);
+    });
 }
 
-// ── Init (Carga todo en orden y al mismo tiempo) ───────────
+// ── Init ──────────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", () => {
   loadGallery();
   loadServices();
@@ -359,7 +351,16 @@ window.addEventListener("DOMContentLoaded", () => {
   loadSettings();
   loadAppointments();
   loadReviewsAdmin();
-  activarNotificacionesAdministrador(); // Llamar a las notificaciones aquí dentro
+
+  // Pedir permisos y activar de forma segura cuando todo cargue
+  Notification.requestPermission().then((permission) => {
+    if (permission === 'granted') {
+      console.log('Permiso de notificaciones concedido.');
+      activarNotificacionesAdministrador();
+    } else {
+      console.warn('Permiso de notificaciones denegado.');
+    }
+  });
 });
 
 // Registrar service worker
