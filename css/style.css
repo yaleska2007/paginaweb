@@ -55,15 +55,15 @@ nav.scrolled { box-shadow: 0 4px 30px rgba(46,26,22,.08); }
 .nav-cta-btn { display: flex; align-items: center; gap: .5rem; background: var(--c-wa); color: var(--c-white); padding: .6rem 1.4rem; border-radius: var(--radius-pill); font-size: .78rem; font-weight: 500; letter-spacing: .05em; transition: opacity var(--transition), transform var(--transition); }
 .nav-cta-btn:hover { opacity: .9; transform: translateY(-1px); }
 
-/* MOBILE NAV — oculto por defecto, solo visible en móvil */
+/* MOBILE NAV */
 .mobile-nav {
   display: none;
 }
 
-/* SPA */
+/* SPA VIEW CONTROLLERS */
 #app { padding-top: 70px; position: relative; }
-.view { display: none; }
-.view.active { display: block; animation: viewIn .45s ease forwards; }
+.view { display: none !important; opacity: 0; pointer-events: none !important; }
+.view.active { display: block !important; opacity: 1; pointer-events: auto !important; animation: viewIn .45s ease forwards; }
 @keyframes viewIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
 /* HERO */
@@ -250,7 +250,7 @@ footer p { font-size: .75rem; color: rgba(250,248,244,.3); font-weight: 300; }
 
 /* ── RESPONSIVE TABLET ────────────────────────────────── */
 @media (max-width: 900px) {
-  nav { padding: 1rem 1.5rem; }
+  nav { padding: 1rem 1.5rem; z-index: 99999 !important; pointer-events: auto !important; }
   .nav-tabs { display: none; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-right { height: 55vw; min-height: 260px; order: -1; }
@@ -271,12 +271,12 @@ footer p { font-size: .75rem; color: rgba(250,248,244,.3); font-weight: 300; }
   .rv-form-wrap { padding: 2rem 1.5rem; }
   .rv-f-grid { grid-template-columns: 1fr; }
 
-  /* Mobile nav visible */
   .mobile-nav {
     display: flex;
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    z-index: 200;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
     height: 64px;
     background: rgba(250,248,244,.97);
     backdrop-filter: blur(14px);
@@ -317,7 +317,7 @@ footer p { font-size: .75rem; color: rgba(250,248,244,.3); font-weight: 300; }
   .wa-float { right: 1rem; width: 50px; height: 50px; font-size: 1.3rem; }
 }
 
-/* Mobile nav buttons */
+/* BOTONES RESPONSIVE MÓVIL (Z-INDEX Y PUNTEROS CAPTURADOS) */
 .mobile-nav button {
   display: flex;
   flex-direction: column;
@@ -336,6 +336,13 @@ footer p { font-size: .75rem; color: rgba(250,248,244,.3); font-weight: 300; }
   flex: 1;
   height: 100%;
   transition: color var(--transition);
+  pointer-events: auto !important;
 }
 .mobile-nav button i { font-size: 1.1rem; }
 .mobile-nav button.active { color: var(--c-rose-deep); }
+
+/* 🔥 PARCHE MAESTRO DE INTERSECCIÓN DE CLICS 🔥 */
+[data-view], [data-go-to], .nav-tabs button, .mobile-nav button, .btn-gold, .btn-ghost {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}

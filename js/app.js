@@ -9,8 +9,10 @@ const STAR_LABELS = ["", "Malo 😞", "Regular 😐", "Bueno 😊", "Muy bueno �
 
 // ── Navegación SPA (Single Page Application) ──────────────
 function switchView(id) {
-  // Ocultar todas las vistas
-  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  // Ocultar todas las vistas de forma segura
+  document.querySelectorAll(".view").forEach(v => {
+    v.classList.remove("active");
+  });
   
   // Mostrar la vista seleccionada
   const target = document.getElementById("view-" + id);
@@ -19,12 +21,12 @@ function switchView(id) {
     window.scrollTo({ top: 0, behavior: "smooth" }); 
   }
   
-  // Marcar como activo el botón correspondiente en los menús
+  // Marcar como activo el botón correspondiente en los menús (Tab y Móvil)
   document.querySelectorAll("[data-view]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.view === id);
   });
   
-  // Cargar datos específicos bajo demanda para mejorar la velocidad
+  // Cargar datos pesados de Firebase solo cuando el cliente entra a la sección
   if (id === "galeria") buildGallery();
   if (id === "resenas") buildReviews();
 }
@@ -32,7 +34,7 @@ function switchView(id) {
 // ── Galería ───────────────────────────────────────────────
 async function buildGallery() {
   const grid = document.getElementById("gallery-grid");
-  if (!grid || grid.children.length) return; // Si no existe o ya tiene fotos, no duplica la carga
+  if (!grid || grid.children.length) return; // Si ya tiene fotos cargadas, no repite el proceso
   
   try {
     const snap = await getDocs(collection(db, "gallery"));
@@ -54,7 +56,7 @@ async function buildGallery() {
   }
 }
 
-// ── Lightbox (Visor de imágenes) ──────────────────────────
+// ── Lightbox (Visor de fotos) ─────────────────────────────
 function openLightbox(src, alt) {
   document.getElementById("lightbox-img").src = src;
   document.getElementById("lightbox-img").alt = alt;
@@ -164,7 +166,7 @@ async function loadBusinessSettings() {
   }
 }
 
-// ── Reseñas (Helper functions) ────────────────────────────
+// ── Reseñas (Calculos y Render) ───────────────────────────
 function starsHTML(n) {
   return Array.from({ length: 5 }, (_, i) =>
     `<i class="fa-solid fa-star${i >= n ? " empty" : ""}"></i>`
@@ -246,7 +248,7 @@ function buildSummary(reviews) {
   }
 }
 
-// ── Star picker (Selector de estrellas) ───────────────────
+// ── Selector de Estrellas (Formulario) ────────────────────
 document.querySelectorAll("#star-picker button").forEach(btn => {
   btn.addEventListener("click", () => {
     selectedStars = parseInt(btn.dataset.v);
@@ -269,7 +271,7 @@ document.querySelectorAll("#star-picker button").forEach(btn => {
   });
 });
 
-// ── Toast (Notificaciones flotantes) ──────────────────────
+// ── Toast (Alertas Flotantes) ─────────────────────────────
 function showToast(msg) {
   const t = document.getElementById("rv-toast");
   if (!t) return;
@@ -278,7 +280,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove("show"), 3200);
 }
 
-// ── Formulario de Reseñas ─────────────────────────────────
+// ── Enviar Reseña a Firestore ─────────────────────────────
 document.getElementById("btn-submit-review")?.addEventListener("click", async () => {
   const name    = document.getElementById("rv-name").value.trim();
   const service = document.getElementById("rv-service").value;
@@ -309,7 +311,7 @@ document.getElementById("btn-submit-review")?.addEventListener("click", async ()
   }
 });
 
-// ── Formulario de Citas ───────────────────────────────────
+// ── Enviar Formulario de Citas a Firestore ────────────────
 document.getElementById("btn-send-appointment")?.addEventListener("click", async () => {
   const name    = document.getElementById("f-name").value.trim();
   const phone   = document.getElementById("f-phone").value.trim();
@@ -341,14 +343,14 @@ document.getElementById("btn-send-appointment")?.addEventListener("click", async
   }
 });
 
-// ── Nav scroll shadow ─────────────────────────────────────
+// ── Sombra del Menú Superior en Scroll ────────────────────
 window.addEventListener("scroll", () => {
   document.getElementById("main-nav")?.classList.toggle("scrolled", window.scrollY > 10);
 });
 
 // ── Inicialización Segura (Init) ──────────────────────────
 window.addEventListener("DOMContentLoaded", async () => {
-  // 1. ACTIVAR BOTONES INMEDIATAMENTE (Prioridad absoluta para que responda la interfaz)
+  // 1. ACTIVAR BOTONES INMEDIATAMENTE (Evita congelamientos de interfaz)
   document.querySelectorAll("[data-view]").forEach(btn => {
     btn.addEventListener("click", () => switchView(btn.dataset.view));
   });
@@ -369,7 +371,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Registrar Service Worker para PWA
+// Registrar Service Worker para soporte PWA
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").catch(err => console.log("SW error:", err));
 }
