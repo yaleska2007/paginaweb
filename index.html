@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ANGELESNAILS2007 — Nail Studio</title>
 
-<!-- PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2E1A16">
 <meta name="mobile-web-app-capable" content="yes">
@@ -60,7 +59,6 @@
 
 <div id="app">
 
-  <!-- INICIO -->
   <div id="view-inicio" class="view active">
     <section class="hero">
       <div class="hero-left">
@@ -115,7 +113,6 @@
     </section>
   </div>
 
-  <!-- SERVICIOS -->
   <div id="view-servicios" class="view">
     <section class="section">
       <div class="s-header">
@@ -126,7 +123,6 @@
     </section>
   </div>
 
-  <!-- GALERÍA -->
   <div id="view-galeria" class="view">
     <section class="section">
       <div class="s-header">
@@ -137,33 +133,32 @@
     </section>
   </div>
 
-  <!-- CITAS -->
-<div id="view-citas" class="view">
-  <section class="section">
-    <div class="booking-wrap">
-      <div class="bk-left">
-        <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
-        <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
-      </div>
-      <div class="bk-form">
-        <h3>Solicitar cita</h3>
-        <div class="f-grid-2">
-          <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
-          <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
+  <div id="view-citas" class="view">
+    <section class="section">
+      <div class="booking-wrap">
+        <div class="bk-left">
+          <div class="s-label" style="color:rgba(200,168,130,.7)">Reservas</div>
+          <h2>Agenda tu <em>cita</em><br>fácil y rápido</h2>
         </div>
-        <div class="f-row">
-          <label>Servicio de interés</label>
-          <input id="f-service" type="text" placeholder="Ej: Acrílicas con nail art... 💅"/>
+        <div class="bk-form">
+          <h3>Solicitar cita</h3>
+          <div class="f-grid-2">
+            <div class="f-row"><label>Tu nombre</label><input id="f-name" type="text" placeholder="Ej: María García"/></div>
+            <div class="f-row"><label>Tu WhatsApp</label><input id="f-phone" type="tel" placeholder="+57 300 000 0000"/></div>
+          </div>
+          <div class="f-row">
+            <label>Servicio de interés</label>
+            <input id="f-service" type="text" placeholder="Ej: Acrílicas con nail art... 💅"/>
+          </div>
+          <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
+          <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
+          
+          <button class="f-submit" id="btn-enviar-cita"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
         </div>
-        <div class="f-row"><label>Fecha preferida</label><input id="f-date" type="date"/></div>
-        <div class="f-row"><label>Mensaje adicional (opcional)</label><textarea id="f-msg" placeholder="Cuéntame algo sobre el diseño que tienes en mente 🌸"></textarea></div>
-        <button class="f-submit" onclick="sendWA()"><i class="fa-solid fa-paper-plane"></i>&nbsp; Enviar solicitud</button>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-  <!-- UBICACIÓN -->
   <div id="view-ubicacion" class="view">
     <section class="section">
       <div class="s-header">
@@ -187,13 +182,13 @@
             style="border:0; border-radius:30px;"
             allowfullscreen=""
             loading="lazy">
+           Zamás iframe -->
           </iframe>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- RESEÑAS -->
   <div id="view-resenas" class="view">
     <section class="section">
       <div class="s-header"><div><div class="s-label">Opiniones</div><h2 class="s-title">Lo que dicen mis <em>clientas</em></h2></div></div>
@@ -228,14 +223,13 @@
           </div>
         </div>
         <div class="f-row"><label>Tu comentario</label><textarea id="rv-comment" rows="3" placeholder="Cuéntale a otras clientas cómo fue tu experiencia…"></textarea></div>
-        <button class="f-submit" onclick="submitReview()" style="max-width:320px;"><i class="fa-solid fa-paper-plane"></i>&nbsp; Publicar reseña</button>
+        
+        <button class="f-submit" id="btn-enviar-resena" style="max-width:320px;"><i class="fa-solid fa-paper-plane"></i>&nbsp; Publicar reseña</button>
       </div>
     </section>
   </div>
 
-</div><!-- /#app -->
-
-<div class="social-strip">
+</div><div class="social-strip">
   <blockquote>"Sígueme en redes para ver mis últimos diseños"</blockquote>
   <div class="soc-links">
     <a id="instagram-link" href="#" class="soc-btn" target="_blank">

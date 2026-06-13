@@ -333,3 +333,107 @@ window.addEventListener("DOMContentLoaded", () => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").catch(err => console.error("SW err:", err));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { db } from "./firebase-config.js";
+import { collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+// Variable para evitar que se disparen notificaciones por registros viejos al cargar la página
+const tiempoCargaInicial = Date.now();
+
+// ==========================================
+// 1. ESCUCHAR NUEVAS CITAS EN TIEMPO REAL
+// ==========================================
+const qCitas = query(collection(db, "citas"));
+
+onSnapshot(qCitas, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    // Solo nos interesan los documentos que se "añaden" nuevos
+    if (change.type === "added") {
+      const cita = change.doc.data();
+      
+      // Validamos que la cita se haya creado DESPUÉS de que abrimos el panel
+      const fechaCreacion = cita.creadoEn?.toDate ? cita.creadoEn.toDate().getTime() : Date.now();
+      
+      if (fechaCreacion > tiempoCargaInicial) {
+        mostrarNotificacionVisual(
+          "✨ ¡Nueva Cita Registrada!", 
+          `${cita.nombreCliente} ha reservado para el servicio de: ${cita.servicio || 'Manicura'}`
+        );
+        // Opcional: Aquí puedes llamar a una función para recargar tu tabla de citas en la pantalla
+      }
+    }
+  });
+});
+
+// ==========================================
+// 2. ESCUCHAR NUEVAS RESEÑAS EN TIEMPO REAL
+// ==========================================
+const qResenas = query(collection(db, "resenas"));
+
+onSnapshot(qResenas, (snapshot) => {
+  snapshot.docChanges().forEach((change) => {
+    if (change.type === "added") {
+      const resena = change.doc.data();
+      
+      const fechaCreacion = resena.creadoEn?.toDate ? resena.creadoEn.toDate().getTime() : Date.now();
+      
+      if (fechaCreacion > tiempoCargaInicial) {
+        mostrarNotificacionVisual(
+          "⭐ ¡Nueva Reseña Recibida!", 
+          `${resena.nombreCliente} calificó con ${resena.estrellas} estrellas: "${resena.comentario}"`
+        );
+      }
+    }
+  });
+});
+
+// ==========================================
+// 3. FUNCIÓN PARA MOSTRAR LA ALERTA EN PANTALLA
+// ==========================================
+function mostrarNotificacionVisual(titulo, mensaje) {
+  // Por ahora usaremos la API de notificaciones nativa del navegador
+  // Si el usuario dio permiso, enviamos notificación de escritorio
+  if (Notification.permission === "granted") {
+    new Notification(titulo, { body: mensaje, icon: "https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/icons/sparkles.svg" });
+  } else {
+    // Si no hay permiso, una alerta elegante en la web (puedes cambiar esto por un Toast de Bootstrap o SweetAlert2)
+    alert(`${titulo}\n\n${mensaje}`);
+  }
+}
+
+// Solicitar permisos de notificación de escritorio al cargar el panel
+if (Notification.permission !== "denied") {
+  Notification.requestPermission();
+}
