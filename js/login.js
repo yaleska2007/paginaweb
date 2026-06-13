@@ -1,13 +1,14 @@
 import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; // ← Cambiado a la versión 10.8.0
+// Versión unificada a la 11.9.1 para evitar conflictos con tu config
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js"; 
 
-// Capturamos los elementos del HTML mediante sus IDs de forma segura
+// Capturamos los elementos del HTML mediante sus IDs
 const btnLogin      = document.getElementById("btn-login");
 const forgotLink    = document.getElementById("forgot-link");
 const emailInput    = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 
-// Lógica moderna para procesar el inicio de sesión (Reemplaza a window.login)
+// Lógica para procesar el inicio de sesión
 btnLogin?.addEventListener("click", async () => {
   const email    = emailInput.value.trim();
   const password = passwordInput.value;
@@ -26,7 +27,7 @@ btnLogin?.addEventListener("click", async () => {
   } catch (error) {
     console.error("Error capturado en el login:", error);
     
-    // Alertas descriptivas según el tipo de fallo para ayudarte a saber qué pasa
+    // Alertas descriptivas según el tipo de fallo
     if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
       alert("Acceso denegado: El correo o la contraseña son incorrectos.");
     } else {
@@ -35,7 +36,7 @@ btnLogin?.addEventListener("click", async () => {
   }
 });
 
-// Lógica para enviar el correo de recuperación (Reemplaza a window.resetPassword)
+// Lógica para enviar el correo de recuperación
 forgotLink?.addEventListener("click", async (e) => {
   e.preventDefault();
   const email = emailInput.value.trim();
