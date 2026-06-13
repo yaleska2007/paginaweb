@@ -254,3 +254,55 @@
 
 </body>
 </html>
+
+
+
+
+<script type="module" src="js/app.js"></script>
+
+<script>
+  // Script de emergencia para forzar el funcionamiento de los botones
+  document.addEventListener("DOMContentLoaded", () => {
+    function forzarCambioPestaña(id) {
+      // 1. Ocultar todas las vistas
+      document.querySelectorAll(".view").forEach(v => {
+        v.classList.remove("active");
+        v.style.display = "none"; // Forzado por CSS directo
+      });
+      
+      // 2. Mostrar la vista que queremos
+      const target = document.getElementById("view-" + id);
+      if (target) {
+        target.classList.add("active");
+        target.style.display = "block"; // Forzado por CSS directo
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      
+      // 3. Iluminar el botón activo en el menú
+      document.querySelectorAll("[data-view]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.view === id);
+      });
+    }
+
+    // Escuchar los clics en el menú superior y móvil
+    document.querySelectorAll("[data-view]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const destino = btn.getAttribute("data-view");
+        if (destino) forzarCambioPestaña(destino);
+      });
+    });
+
+    // Escuchar los botones de "Agendar cita" y "Ver portafolio" del inicio
+    document.querySelectorAll("[data-go-to]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const destino = btn.getAttribute("data-go-to");
+        if (destino) forzarCambioPestaña(destino);
+      });
+    });
+    
+    console.log("🚀 Sistema de navegación de emergencia activado correctamente.");
+  });
+</script>
+
+</body>
+</html>
